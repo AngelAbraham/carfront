@@ -1,5 +1,3 @@
-export default apm;
-
 import { init as initApm } from '@elastic/apm-rum'
 var apm = initApm({
  // Establece el nombre de servicio requerido (caracteres permitidos: a-z, A-Z, 0-9, -, _ y espacio)
