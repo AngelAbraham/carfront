@@ -11,17 +11,18 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Snackbar from '@material-ui/core/Snackbar';
 
-class Carlist extends Component {
+class Carlist extends Component{
     constructor(props) {
         super(props);
         this.state = { cars: [], open: false, message: '' };
+  //      this.apm.startTransaction("Add Car", "Car");
     }
 
     // Add new car
     addCar(car) {
         // Create a custom transaction
-        var transaction = apm.startTransaction("Add Car", "Car");
-        apm.addTags(car);
+    apm.startTransaction("Add Car", "Car");
+    apm.addTags(car);
 
         fetch(SERVER_URL + 'api/cars',
             {
@@ -67,6 +68,8 @@ class Carlist extends Component {
 
     // Delete car
     onDelClick = (link) => {
+        apm.startTransaction("Delete Car", "Car");
+        apm.addTags(link);
         fetch(link, { method: 'DELETE' })
             .then(res => {
                 this.setState({ open: true, message: 'Car deleted' });
@@ -80,6 +83,8 @@ class Carlist extends Component {
 
     // Update car
     updateCar(car, link) {
+        apm.startTransaction("Update Car", "Car");
+        apm.addTags(car);
         fetch(link,
             {
                 method: 'PUT',
